@@ -8,14 +8,17 @@ import iconClose from '@icons/icon_close.png';
 const ProductItem = ({ product }) => {
 	const { addToCart,removeFromCart } = useContext(AppContext);
 	const [addedToCart,setAddedToCart] = useState(false);
+	
 
 	const handleAdd = item => {
 		addToCart(item);
 		setAddedToCart(true);
+		
 	}
 	const handleRemove= item => {
 		removeFromCart(item);
 		setAddedToCart(false);
+		
 	}
 
 	return (

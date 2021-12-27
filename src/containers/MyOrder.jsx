@@ -1,22 +1,18 @@
-import React, { useContext} from "react";
+import React, { useContext, useState} from "react";
 import OrderItem from "@components/OrderItem";
 import "@styles/MyOrder.scss";
 import icons from '@icons/flechita.svg';
 import AppContext from "@context/AppContext";
 
 
-const MyOrder = () => {
+const MyOrder = ({ toggleOrders, setToggleOrders }) => {
   const { state } = useContext(AppContext);
-  const sumTotal = () => {
-    const reducer = (accumulator, currentValue) => accumulator + currentValue.price;
-    const sum = state.cart.reduce(reducer, 0);
-    return sum;
-  };
+  const [ toggle, setToggle ] = useState(false);
     
 
   return (
     <aside className="MyOrder">
-      <div className="title-container">
+      <div className="title-container" onClick={() => setToggleOrders(!toggleOrders)}>
         <img src={icons} alt="arrow" />
         <p className="title">My order</p>
       </div>
@@ -31,8 +27,9 @@ const MyOrder = () => {
           </p>
           <p>${state.total}</p>
         </div>
-        <button className="primary-button">Checkout</button>
+        <button className="primary-button" onClick={() => setToggle(true)}>Checkout</button>
       </div>
+      {toggle && <Checkout setToggle={setToggle}/>}
     </aside>
   );
 };

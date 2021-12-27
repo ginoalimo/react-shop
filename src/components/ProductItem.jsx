@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import '@styles/ProductItem.scss';
 import AppContext  from '@context/AppContext';
 import icons from '@icons/bt_add_to_cart.svg';
-import iconClose from '@icons/icon_close.png';
+import iconClose from '@icons/bt_added_to_cart.svg';	
 
 
 const ProductItem = ({ product }) => {
@@ -13,11 +13,14 @@ const ProductItem = ({ product }) => {
 	const handleAdd = item => {
 		addToCart(item);
 		setAddedToCart(true);
-		
+		document.getElementById('addToCart').style.display = 'none';
+		document.getElementById('addedToCart').style.display = 'block';
 	}
 	const handleRemove= item => {
 		removeFromCart(item);
 		setAddedToCart(false);
+		document.getElementById('addToCart').style.display = 'block';
+		document.getElementById('addedToCart').style.display = 'none';
 		
 	}
 
@@ -29,14 +32,17 @@ const ProductItem = ({ product }) => {
 					<p>${product.price}</p>
 					<p>{product.title}</p>
 				</div>
-				{!addedToCart ?
+				{!addedToCart ? 
 				<figure onClick={() => handleAdd(product)} >
-					<img src={icons} alt="" />
+					<img src={icons} alt="add to cart" id="addToCart"/>
+					<img src={iconClose} alt="added to cart" id="addedToCart" style={{display: 'none'}}/>
+					
 				</figure> 
 				:
 				<figure onClick={() => handleRemove(product)} >
-					<img src={iconClose} alt="" />
-				</figure>
+					<img src={icons} alt="add to cart" id="addToCart" style={{display: 'none'}}/>
+					<img src={iconClose} alt="added to cart" id="addedToCart"/>
+				</figure> 
 				}
 			</div>
 		</div>
